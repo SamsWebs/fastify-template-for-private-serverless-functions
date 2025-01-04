@@ -25,4 +25,4 @@ When developing, please ensure Husky is enabled.  This will run linting and test
 
 ## Deployment
 
-This template is intended to be deployed to AWS Lambda.  You can deploy your code by running the `deploy.yml` GitHub Action. A pre-requisite is the necessary infrastructure to be set up in AWS via the Terraform code in the `.infrastructure` directory.  This will create the necessary resources for your Lambda function to run.  Please see the [README](.infrastructure/README.md) in the `.infrastructure` directory for more information.
+This template is intended to be deployed to AWS Lambda.  You can deploy your code by running the [push-images-and-update-lambda.yml](.github/workflows/push-images-and-update-lambda.yml) GitHub Action. A pre-requisite is the necessary infrastructure to be set up in AWS via the Terraform code in the `.infrastructure` directory.  This will create the necessary resources for your Lambda function to run.  Please see the [README](.infrastructure/README.md) in the `.infrastructure` directory for more information.
