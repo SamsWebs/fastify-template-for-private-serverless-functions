@@ -1,7 +1,5 @@
-name: Deployment (ECR, ECS)
+name: Build/Push Images to ECR
 on:
-  # push:
-  #   branches: [ "main" ]
   workflow_dispatch:  # manual triggering
     inputs:
       environment:
@@ -15,14 +13,8 @@ on:
 env:
   DEPLOYMENT_ENV: ${{ github.event.inputs.environment || 'demo' }}
   REGISTRY: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
-  APP_IMAGE: gighive-jobs
+  APP_IMAGE: fastify-template-function
   AWS_REGION: us-east-1
-  DEMO_SUBNETS: ${{ secrets.DEMO_SUBNETS }}
-  DEMO_SG: ${{ secrets.DEMO_SG }}
-  STAGING_SUBNETS: ${{ secrets.STAGING_SUBNETS }}
-  STAGING_SG: ${{ secrets.STAGING_SG }}
-  PROD_SUBNETS: ${{ secrets.PROD_SUBNETS }}
-  PROD_SG: ${{ secrets.PROD_SG }}
 
 jobs:
   build-and-push:
@@ -56,20 +48,9 @@ jobs:
       env:
         REMOTE_IMAGE: ${{ env.REGISTRY }}/${{ env.APP_IMAGE }}
         IMAGE_TAG: ${{ github.sha }}
+        DEPLOYMENT_ENV: ${{ env.DEPLOYMENT_ENV }}
       run: |
         docker build -t $REMOTE_IMAGE:$IMAGE_TAG \
-          --build-arg DATABASE_URL="sqlite:///mvp.db" .
+           --build-arg ENV="${DEPLOYMENT_ENV}" .
         docker tag $REMOTE_IMAGE:$IMAGE_TAG $REMOTE_IMAGE:latest
         docker push --all-tags $REMOTE_IMAGE
-
-    - name: Deploy to ECS
-      if: success()
-      env:
-        DEPLOYMENT_ENV: ${{ env.DEPLOYMENT_ENV }}
-        REGION: ${{ env.AWS_REGION }}
-      run: |
-        aws ecs update-service \
-          --cluster $DEPLOYMENT_ENV-gighive-jobs-cluster \
-          --service $DEPLOYMENT_ENV-gighive-jobs-service \
-          --force-new-deployment \
-          --region $REGION
