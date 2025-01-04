@@ -38,7 +38,7 @@ jobs:
         DEPLOYMENT_ENV: ${{ env.DEPLOYMENT_ENV }}
         REMOTE_IMAGE: ${{ env.REGISTRY }}/${{ env.APP_IMAGE }}
         REGION: ${{ env.AWS_REGION }}
-        FUNC_NAME: ${{ env.APP_IMAGE }}-${{ env.DEPLOYMENT_ENV }}
+        FUNC_NAME:  ${{ env.DEPLOYMENT_ENV }}-${{ env.APP_IMAGE }}
       run: |
         aws lambda update-function-code \
           --function-name $FUNC_NAME \

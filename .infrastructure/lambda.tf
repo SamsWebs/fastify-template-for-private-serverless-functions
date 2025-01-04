@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "lambda_function" {
-  function_name = "${var.environment}-${var.function_name}-lambda_function"
+  function_name = "${var.environment}-${var.function_name}"
   timeout       = var.function_timeout
   image_uri     = "${local.account_id}.dkr.ecr.${var.region}.amazonaws.com/${var.function_name}:latest"
   package_type  = "Image"
