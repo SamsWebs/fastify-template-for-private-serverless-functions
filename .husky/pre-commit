@@ -2,5 +2,6 @@
 
 npm run lint
 npm run format
+terraform fmt -recursive
 
 git add .

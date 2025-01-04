@@ -15,7 +15,7 @@ Currently, the Terraform code is set up to deploy the **demo**, **staging**, and
 ```bash
 cd terraform
 terraform init  # Initialize the Terraform configuration
-terraform plan -var-file "environments/demo.tfvars  # Plan the deployment
+terraform plan -var-file "environments/demo.tfvars"  # Plan the deployment
 terraform apply -var-file "environments/demo.tfvars"  # Deploy the infrastructure
 ```
 
