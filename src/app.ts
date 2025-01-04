@@ -3,7 +3,7 @@ import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
 export const fastify = Fastify();
 
 // GET requests
-fastify.get('/get/about', {}, async (_request: FastifyRequest, _reply: FastifyReply) => {
+fastify.get('/', {}, async (_request: FastifyRequest, _reply: FastifyReply) => {
   return {
     status: 'Success',
     result: `${process.env.ABOUT_MESSAGE}`
