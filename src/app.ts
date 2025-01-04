@@ -6,7 +6,7 @@ export const fastify = Fastify();
 fastify.get('/get/about', {}, async (_request: FastifyRequest, _reply: FastifyReply) => {
   return {
     status: 'Success',
-    result: `${process.env.ABOUT_MESSAGE}`,
+    result: `${process.env.ABOUT_MESSAGE}`
   };
 });
 

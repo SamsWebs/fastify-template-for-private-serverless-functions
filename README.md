@@ -1,5 +1,5 @@
 # Fastify Template for Private Serverless APIs
-
+sf
 This is a template for creating a private serverless API using Fastify and AWS Lambda. It is intended to be used as a starting point for new projects.
 
 ## Overview
