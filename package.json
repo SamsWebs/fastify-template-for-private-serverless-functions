@@ -20,7 +20,7 @@
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
-    "esbuild": "^0.21.5",
+    "esbuild": "^0.24.2",
     "eslint": "^8.57.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "fastify": "^4.26.2",
