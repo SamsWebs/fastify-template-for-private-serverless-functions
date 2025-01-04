@@ -9,7 +9,7 @@ The templates is written in TypeScript and runs on Node.js. We leverage the [Fas
 ## Setup
 
 1. Create a new repository from this template and clone it!
-2. Install dependencies with `npm install`.
-3. Create `.env` via `cp .env.example .env` and fill in the necessary environment variables.
-4. Start your local server with `npm run start`
+2. Install dependencies with `npm install` or `npm i`.
+3. Create `.env` via `cp .envrc.example .envrc` and fill in the necessary environment variables.  This file type assumes you are using `direnv` to manage your environment variables.  If you are not, export the variables in your shell or use a different method.
+4. Start your local server with `npm run dev`.
 5. Start developing!
