@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "start": "esbuild src/**/*.ts --outdir=dist/local && nodemon --env-file=.env dist/local/app.js",
+    "dev": "esbuild src/**/*.ts --outdir=dist/local && nodemon dist/local/app.js",
     "build": "esbuild src/index.ts --bundle --minify --platform=node --outdir=dist/lambda --external:@aws-sdk",
     "lint": "eslint src/**/*.ts",
     "format": "prettier src/**/*.{ts,tsx} --single-quote --write",
@@ -17,6 +17,7 @@
     "@types/aws-lambda": "^8.10.147",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.12.7",
+    "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "esbuild": "^0.21.5",
@@ -28,6 +29,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.0.3",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2"
   },
