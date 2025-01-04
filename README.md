@@ -18,6 +18,11 @@ The templates is written in TypeScript and runs on Node.js. We leverage the [Fas
 
 When developing, please ensure Husky is enabled.  This will run linting and tests before you commit your code and run tests before you push your code.  This is to ensure that the codebase is consistent and that tests are passing before you push your code.  To enable Husky, run `npx husky` in the root of your project.
 
+**Important things to note:**
+
+- The private API templates avoids using AWS API Gateway, so we are limited to only being called from within the AWS ecosystem.  There are no Terraform code to deploy an API Gateway in this template.
+- The "private API" templates are intended to be used for APIs that are not intended to be public.  This means that you should not expose your API to the public internet.  If you need to expose your API to the public internet, you should consider creating a repository from the "Django Public REST API" template.
+
 ## Deployment
 
 This template is intended to be deployed to AWS Lambda.  You can deploy your code by running the `deploy.yml` GitHub Action. A pre-requisite is the necessary infrastructure to be set up in AWS via the Terraform code in the `.infrastructure` directory.  This will create the necessary resources for your Lambda function to run.  Please see the [README](.infrastructure/README.md) in the `.infrastructure` directory for more information.
