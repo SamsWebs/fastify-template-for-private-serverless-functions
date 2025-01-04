@@ -1,0 +1,63 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Sentry Config File
+.sentryclirc
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth
+
+
+# Terraform
+**/.terraform/*
+.terraform.tfstate.lock.info
+.terraformrc
+terraform.rc
+
+# Terraform .tfstate files
+# TODO: w.sams - Dec 20'24 - eventually we'll want to store state somewhere other than this repo.
+# I have a plan for doing this in DynamoDB, but it's not a priority right now.
+# *.tfstate
+# *.tfstate.*
+
+# miscellaneous
+.swc
+.husky/_
+
+dist/

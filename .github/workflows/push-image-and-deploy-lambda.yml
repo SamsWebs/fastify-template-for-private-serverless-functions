@@ -1,0 +1,75 @@
+name: Deployment (ECR, ECS)
+on:
+  # push:
+  #   branches: [ "main" ]
+  workflow_dispatch:  # manual triggering
+    inputs:
+      environment:
+        type: choice
+        description: Environment to deploy to
+        options: 
+        - demo
+        - staging
+        - prod
+
+env:
+  DEPLOYMENT_ENV: ${{ github.event.inputs.environment || 'demo' }}
+  REGISTRY: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+  APP_IMAGE: gighive-jobs
+  AWS_REGION: us-east-1
+  DEMO_SUBNETS: ${{ secrets.DEMO_SUBNETS }}
+  DEMO_SG: ${{ secrets.DEMO_SG }}
+  STAGING_SUBNETS: ${{ secrets.STAGING_SUBNETS }}
+  STAGING_SG: ${{ secrets.STAGING_SG }}
+  PROD_SUBNETS: ${{ secrets.PROD_SUBNETS }}
+  PROD_SG: ${{ secrets.PROD_SG }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+
+    - name: Log in to the Container registry
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login To ECR
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up QEMU dependency
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build and push Application image to ECR
+      env:
+        REMOTE_IMAGE: ${{ env.REGISTRY }}/${{ env.APP_IMAGE }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t $REMOTE_IMAGE:$IMAGE_TAG \
+          --build-arg DATABASE_URL="sqlite:///mvp.db" .
+        docker tag $REMOTE_IMAGE:$IMAGE_TAG $REMOTE_IMAGE:latest
+        docker push --all-tags $REMOTE_IMAGE
+
+    - name: Deploy to ECS
+      if: success()
+      env:
+        DEPLOYMENT_ENV: ${{ env.DEPLOYMENT_ENV }}
+        REGION: ${{ env.AWS_REGION }}
+      run: |
+        aws ecs update-service \
+          --cluster $DEPLOYMENT_ENV-gighive-jobs-cluster \
+          --service $DEPLOYMENT_ENV-gighive-jobs-service \
+          --force-new-deployment \
+          --region $REGION
