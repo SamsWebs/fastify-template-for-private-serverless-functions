@@ -21,7 +21,7 @@ When developing, please ensure Husky is enabled.  This will run linting and test
 **Important things to note:**
 
 - The private API template avoids using AWS API Gateway, so we are limited to only being called from within the AWS ecosystem.  There is no Terraform code to deploy an API Gateway in this template.
-- The "private API" template is intended to be used for APIs that are not intended to be public.  This means that you should not expose your API to the public internet.  If you need to expose your API to the public internet, you should consider creating a repository from the "Django Public REST API" template.
+- The "private API" template is intended to be used for APIs that are not intended to be public.  This means that you should not expose your API to the public internet.  If you need to expose your API to the public internet, you should consider creating a repository from the [Django Public REST API template](https://github.com/SamsWebs/django-template-for-public-rest-apis).
 
 ## Deployment
 
