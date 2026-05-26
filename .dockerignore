@@ -1,5 +1,5 @@
 .github/
 .husky/
-.infrastucture/
+.infrastructure/
 dist/
 node_modules

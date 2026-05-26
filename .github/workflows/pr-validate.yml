@@ -1,6 +1,8 @@
 name: Valdiate PR
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -8,36 +10,15 @@ permissions:
   contents: read
 
 jobs:
-  lint-branch-name:
-    name: Lint Branch Name
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/github-script@v6
-        with:
-          result-encoding: string
-          script: |
-            const enforceSemantic = (branchName) => {
-              const semanticFormat = /(feat\W|feature\/|fix\/|ci\/|chore\/|refactor\/|dependabot\/|docs\/|style\/|test\/)/
-              if (!semanticFormat.test(currentBranch)) {
-                core.setFailed(
-                  `Branch names in PRs should use semantic conventions, e.g. (feat, fix, chore, refactor).  To fix. ` +
-                  `perform: git branch -m <new_branch_name> && git push origin -u <:<old_branch_name> <new_branch_name>` +
-                  `For more details, please review https://www.conventionalcommits.org/ and https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716`)
-              }
-            }
-            const currentBranch = context.payload.pull_request.head.ref
-            enforceSemantic(currentBranch)
-
   run-unit-tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '20.x'
+        node-version: '22.x'
 
     - name: Run Tests
       run: |

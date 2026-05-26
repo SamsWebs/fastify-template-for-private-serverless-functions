@@ -2,6 +2,7 @@ resource "aws_iam_role" "lambda-function-role" {
   name = "${var.environment}-${var.function_name}-lambda_function_role"
 
   assume_role_policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [
       {
         Action = "sts:AssumeRole"
