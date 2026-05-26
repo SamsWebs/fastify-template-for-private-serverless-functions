@@ -1,19 +1,27 @@
 {
+  "name": "fastify-serverless-template",
+  "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "dev": "esbuild src/**/*.ts --outdir=dist/local && nodemon dist/local/app.js",
-    "build": "esbuild src/index.ts --bundle --minify --platform=node --outdir=dist/lambda --external:@aws-sdk",
+    "dev": "esbuild src/**/*.ts --outdir=dist/local && nodemon dist/local/server.js",
+    "build": "esbuild src/index.ts --bundle --minify --platform=node --outdir=dist/lambda --external:'@aws-sdk/*'",
     "lint": "eslint src/**/*.ts",
     "format": "prettier src/**/*.{ts,tsx} --single-quote --write",
-    "test": "tsc && ENV=test jest --maxWorkers=2",
-    "test:coverage": "tsc && ENV=test jest --coverage",
+    "test": "tsc --noEmit && ENV=test jest --maxWorkers=2",
+    "test:coverage": "tsc --noEmit && ENV=test jest --coverage",
     "prepare": "husky"
   },
   "imports": {
     "#src/*": "./src/*.ts"
   },
-  "devDependencies": {
+  "dependencies": {
     "@fastify/aws-lambda": "^5.0.0",
+    "fastify": "^5.2.1"
+  },
+  "devDependencies": {
     "@types/aws-lambda": "^8.10.147",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.5",
@@ -23,15 +31,14 @@
     "esbuild": "^0.24.2",
     "eslint": "^8.57.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "fastify": "^5.2.1",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.0.3",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
   },
   "nodemonConfig": {
     "ext": "ts,js,json",
@@ -39,7 +46,7 @@
       "src/"
     ],
     "events": {
-      "restart": "esbuild --format=esm src/**/*.ts --outdir=dist"
+      "restart": "esbuild src/**/*.ts --outdir=dist/local"
     }
   }
 }

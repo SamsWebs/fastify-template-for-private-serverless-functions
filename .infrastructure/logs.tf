@@ -1,4 +1,4 @@
 resource "aws_cloudwatch_log_group" "cloudwatch-log-group" {
-  name              = "/lambda/${var.function_name}"
+  name              = "/aws/lambda/${var.function_name}"
   retention_in_days = var.log_retention_in_days
 }
