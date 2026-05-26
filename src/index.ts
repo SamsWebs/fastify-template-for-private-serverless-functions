@@ -4,6 +4,6 @@ import { fastify } from '#src/app';
 
 const proxy = awsLambdaFastify(fastify);
 
-export async function handler(event: APIGatewayEvent, context: Context) {
-  return await proxy(event, context);
+export function handler(event: APIGatewayEvent, context: Context) {
+  return proxy(event, context);
 }
