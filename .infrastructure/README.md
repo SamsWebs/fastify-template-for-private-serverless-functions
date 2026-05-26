@@ -1,6 +1,6 @@
 # Deploying Infrastructure with Terraform
 
-This repository contains the Terraform configuration files to deploy the infrastructure to ECS Fargate.
+This directory contains the Terraform configuration files to deploy the infrastructure for this Lambda function to AWS.
 
 ## Prerequisites
 
@@ -13,26 +13,24 @@ This repository contains the Terraform configuration files to deploy the infrast
 Currently, the Terraform code is set up to deploy the **demo**, **staging**, and **production** environments.  To deploy an environment, run the following commands:
 
 ```bash
-cd terraform
+cd .infrastructure
 terraform init  # Initialize the Terraform configuration
 terraform plan -var-file "environments/demo.tfvars"  # Plan the deployment
 terraform apply -var-file "environments/demo.tfvars"  # Deploy the infrastructure
 ```
 
-Terraform allows for reproducible infrastructure deployments by using the same configuration files to deploy the same infrastructure in different environments.  The `terraform appy -var-file "environments/<env name>.tfvars` command will prompt you to confirm the deployment before proceeding.  So, any changes to the infrastructure can be reviewed before applying them.
+Terraform allows for reproducible infrastructure deployments by using the same configuration files to deploy the same infrastructure in different environments.  The `terraform apply -var-file "environments/<env name>.tfvars"` command will prompt you to confirm the deployment before proceeding.  So, any changes to the infrastructure can be reviewed before applying them.
 
-Note: Additonal environments can be added by created by adding a new TFvars file in the `terraform/environments` directory.
+Note: Additional environments can be added by creating a new `.tfvars` file in the `.infrastructure/environments` directory.
 
-Each environment sets up the following resources:
-
-Sets up the following AWS infrastructure:
+Each environment sets up the following AWS infrastructure:
 
 - IAM Roles and Policies
 - Lambda Function
-- Logs
+- CloudWatch Log Group
 
 If you make changes to the Terraform configuration, run `terraform validate` to check for syntax errors.  Before applying the changes, you can run `terraform plan` to see the changes that will be applied before running `terraform apply`.
 
 ## Cost Estimates
 
-The baseline cost for each environment is xxxxx. Also, some costs may be lower due to free-tier usage.  However, the cost can be estimated using the AWS Pricing Calculator [link](https://calculator.aws).
+AWS Lambda and CloudWatch Logs costs are based on usage. At low to moderate traffic, both services typically fall within the AWS free tier. Use the [AWS Pricing Calculator](https://calculator.aws) to estimate costs for your expected workload.
