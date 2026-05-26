@@ -8,10 +8,12 @@
     "baseUrl": "./src",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "isolatedModules": true,
     "paths": {
       "#src/*": [
         "./*"
       ]
     }
-  }
+  },
+  "include": ["src", "specs", "jest.config.ts"]
 }

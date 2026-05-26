@@ -5,9 +5,9 @@ const config: Config.InitialOptions = {
   rootDir: '.',
   verbose: true,
   clearMocks: true,
-  testEnvironment: 'jest-environment-jsdom',
-  transform: {
-    '\\.(js|jsx)?$': 'ts-jest',
+  testEnvironment: 'node',
+  moduleNameMapper: {
+    '^#src/(.*)$': '<rootDir>/src/$1',
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   coverageProvider: 'v8',

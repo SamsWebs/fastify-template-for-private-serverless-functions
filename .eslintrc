@@ -1,38 +1,28 @@
 {
     "extends": [
-      "eslint:recommended", 
-      "plugin:@typescript-eslint/recommended", 
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
       "plugin:eslint-comments/recommended"
     ],
     "plugins": [
-      "@typescript-eslint", 
+      "@typescript-eslint",
       "eslint-comments"
     ],
     "root": true,
-    "env": { "browser": true, "es6": true },
+    "env": { "node": true, "es6": true },
     "parser": "@typescript-eslint/parser",
     "parserOptions": { "project": "./tsconfig.json" },
-    "ignorePatterns": ["build","specs",".eslintrc"],
+    "ignorePatterns": ["build", "specs", ".eslintrc"],
     "rules": {
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",
       "@typescript-eslint/no-floating-promises": "off",
-      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "_" }],
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-empty-function": ["error", { "allow": ["methods", "arrowFunctions"] }],
-      "explicit-function-return-type": "off",
-      "strict-boolean-expressions": "off",
-      "no-floating-promises": "off",
-      "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }],
-      "no-empty-function": ["error", { "allow": ["methods", "arrowFunctions"] }],
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+      "no-unused-vars": "off",
       "no-case-declarations": "off",
       "no-console": "error",
-      "no-debugger": "error"  
-    },
-    "overrides": [
-        {
-            "files": ["./src/**/*.ts"],
-            "excludedFiles": ["./specs/**/*.spec.ts"],
-        }
-    ]
-  }
+      "no-debugger": "error"
+    }
+}
